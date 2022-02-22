@@ -5,7 +5,7 @@
 # FN: frist_built
 # Author: xiaxu
 # DATA: 2022/2/21
-# Description:初次实现，xml创建html文件
+# Description:初次实现，xml创建html文件；这个代码的问题：使用if处理事件；html文件为硬编码
 # ---------------------------------------------------
 from xml.sax.handler import ContentHandler
 from xml.sax import parse
