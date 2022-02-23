@@ -20,8 +20,9 @@ class Dispatcher:
         if callable(method):args = () #寻找合适的方法
         else:
             method = getattr(self,dname,None)
-            args = name
-        if prefix == "start": args += attrs
+            args = name,  #这里要注意，赋值的是元组
+        if prefix == 'start': args += attrs, #这里也必须是元组，元组到元组，否则则会报错
+        # can only concatenate tuple (not "AttributesImpl") to tuple
         if callable(method):method(*args)
 
     def startElement(self,name,attrs):
@@ -64,14 +65,14 @@ class WebsiteConstructor(Dispatcher,ContentHandler):
         if self.passthrough:
             self.out.write(content)
 
-    def defaultStart(self):
+    def defaultStart(self,name,attrs):
         if self.passthrough:
             self.out.write('<' + name)
             for key, val in attrs.items():
                 self.out.write(' {}="{}"'.format(key, val))
             self.out.write('>')
 
-    def defaultEnd(self):
+    def defaultEnd(self,name):
         if self.passthrough:
             self.out.write('</{}>'.format(name))
 
